@@ -1,0 +1,7 @@
+create user EdixonDCT@localhost identified by '11404Castillo';
+
+create database php_edixon;
+
+grant all privileges on php_edixon. * to EdixonDCT@localhost;
+
+flush privileges

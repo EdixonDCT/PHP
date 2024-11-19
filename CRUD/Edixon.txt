@@ -1,0 +1,43 @@
+drop table if exists lenguaje_usuario;
+drop table if exists usuarios;
+drop table if exists generos;
+drop table if exists ciudades;
+drop table if exists lenguajes;
+
+create table generos(
+id_genero int auto_increment,
+nombre_genero varchar(255),
+primary key(id_genero));
+
+create table lenguajes(
+id_lenguaje int auto_increment,
+nombre_lenguaje varchar(255),
+primary key(id_lenguaje));
+
+create table ciudades(
+id_ciudad int auto_increment,
+nombre_ciudad varchar(255),
+primary key(id_ciudad));
+
+create table usuarios(
+id_usuario int auto_increment,
+nombre varchar(255),
+apellido varchar(255),
+correo varchar(255),
+fecha_nacimiento date,
+id_genero int,
+id_ciudad int,
+primary key(id_usuario),
+foreign key (id_genero) references generos(id_genero),
+foreign key (id_ciudad) references ciudades(id_ciudad));
+
+create table lenguaje_usuario(
+id_usuario int,
+id_lenguaje int,
+foreign key (id_usuario) references usuarios(id_usuario),
+foreign key (id_lenguaje) references lenguajes(id_lenguaje));
+
+insert into ciudades(nombre_ciudad) values ('Giron'),('Bucaramanga'),('Floridablanca'),('Lebrija'),('Piedecuesta');
+insert into generos(nombre_genero) values ('Masculino'),('Femenino'),('Otro');
+insert into lenguajes(nombre_lenguaje) values ('Java'),('Net'),('SQL'),('JavaScript'),('PHP'),('PHYTON');
+insert into usuarios(nombre,apellido,correo,fecha_nacimiento,id_genero,id_ciudad) values ('Edixon','Castillo','edixondelta2022@gmail.com','2005-04-19',1,3);
