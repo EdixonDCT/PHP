@@ -101,5 +101,5 @@ $lenguaje = $bandera_lenguaje->fetchAll();
         </div>
 
         <div>
-        <input type="submit"></input>
+        <input type="submit"></input>   
 </form>
