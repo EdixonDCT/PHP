@@ -1,11 +1,13 @@
 <?php
+
+
 require('conexion.php');
+
 $db ="";
 $conexion ="";
+
 $db = new Conexion();
 $conexion = $db->getConexion();
-
-$ID = $_GET['id'];
 
 $sql = "SELECT * FROM ciudades";// consulta para las ciudades
 $sql_generos = "SELECT * FROM generos";// consulta para los generos
@@ -22,39 +24,37 @@ $generos = $bandera_generos->fetchAll();
 $bandera_lenguaje = $conexion->prepare($sql_lenguajes);
 $bandera_lenguaje->execute();
 $lenguaje = $bandera_lenguaje->fetchAll();
+ 
+// echo "<pre>";
+// print_r($ciudades);
+// echo "</pre>";
 
-$sql_usuarios = "SELECT * FROM usuarios WHERE id_usuario = :id_usuario";
-$stm = $conexion->prepare($sql_usuarios);
-$stm->bindParam(":id_usuario",$ID);
-$stm->execute();
-$usuarios = $stm->fetchAll();
-$usuariosDatos = $usuarios[0];
-$sql_lengUsu = "SELECT * FROM lenguaje_usuario WHERE id_usuario = :id_usuario;";
-$stm6 = $conexion->prepare($sql_lengUsu);
-$stm6->bindParam(":id_usuario",$ID);
-$stm6->execute();
-$lengUsu = $stm6->fetchAll();
+// echo "<pre>";
+// print_r($generos);
+// echo "</pre>";
+
+// echo "<pre>";
+// print_r($lenguaje);
+// echo "<pre>";
+
 ?>
-<form action="actualizar.php" method="post">
-        <h1>Editar</h1>
+<form action="controlador.php" method="post">
+        <h1>Formulario</h1>
         <div>
-            <input type="hidden" name="id" value="<?=$ID?>">
-        </div>
-        <div>
-            <label for="nombre" >Nombres</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Nombre" required value="<?=$usuariosDatos['nombre']?>">
+            <label for="nombre">Nombres</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
         </div>
         <div>
             <label for="apellido">Apellido</label>
-            <input type="text" id="apellido" name="apellido" placeholder="Apellido"  required value="<?=$usuariosDatos['apellido']?>">
+            <input type="text" id="apellido" name="apellido" placeholder="Apellido"  required>
         </div>
         <div>
             <label for="correo">Correo</label>
-            <input type="text" id="correo" name="correo" placeholder="Correo" required value="<?=$usuariosDatos['correo']?>">
+            <input type="text" id="correo" name="correo" placeholder="Correo"  required>
         </div>
         <div>
             <label for="fecha_nacimiento">Fecha Nacimiento</label>
-            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="Fecha" required value="<?=$usuariosDatos['fecha_nacimiento']?>">
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="Fecha" required>
         </div>
 
         <div>
@@ -63,8 +63,8 @@ $lengUsu = $stm6->fetchAll();
                 <?php
                 foreach ($ciudades as $key => $value) {
                 ?>
-                <option value="<?=$value['id_ciudad']?>" required <?= $usuariosDatos['id_ciudad'] === $value['id_ciudad'] ? "selected" : "" ?>>
-                    <?= $value['nombre_ciudad']?>
+                <option value="<?=$value['id_ciudad']?>" required>
+                    <?= $value['nombre_ciudad'] ?>
                 </option>
                 <?php
                 }
@@ -79,8 +79,7 @@ $lengUsu = $stm6->fetchAll();
             ?>
                 <div>
                     <label for="genero<?=$value['id_genero']?>"><?= $value['nombre_genero'] ?>
-                        <input type="radio" name="id_genero" value="<?= $value['id_genero'] ?>" id="<?=$value['id_genero']?>"  required 
-                        <?= $usuariosDatos['id_genero'] === $value['id_genero'] ? "checked" : "" ?>>
+                        <input type="radio" name="id_genero" value="<?= $value['id_genero'] ?>" id="<?=$value['id_genero']?>"  required>
                     </label>
                 </div>
             <?php
@@ -94,18 +93,7 @@ $lengUsu = $stm6->fetchAll();
              foreach ($lenguaje as $key => $value){
             ?>
              <label for="lenguaje<?=$value['id_lenguaje']?>"><?= $value['nombre_lenguaje'] ?>
-             <input type="checkbox" name="id_lenguaje[]" value="<?= $value['id_lenguaje'] ?>" id="<?=$value['id_lenguaje']?>"
-             <?php 
-             foreach ($lengUsu as $key => $value2)
-             {
-                if ($value['id_lenguaje'] === $value2['id_lenguaje']) {
-                    ?>
-                    checked
-                    <?php
-                }
-             }
-             ?>
-            >
+             <input type="checkbox" name="id_lenguaje[]" value="<?= $value['id_lenguaje'] ?>" id="<?=$value['id_lenguaje']?>"> 
              </input>
              <?php
                 }
@@ -113,5 +101,5 @@ $lengUsu = $stm6->fetchAll();
         </div>
 
         <div>
-        <input type="submit" value="Actualizar"></input>
+        <input type="submit" value="Enviar"></input>   
 </form>
