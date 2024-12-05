@@ -53,7 +53,7 @@ $lenguaje = $bandera_lenguaje->fetchAll();
         </div>
         <div>
             <label for="fecha_nacimiento">Fecha Nacimiento:</label>
-            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="Fecha">
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="Fecha" required>
         </div>
 
         <div>
@@ -79,7 +79,7 @@ $lenguaje = $bandera_lenguaje->fetchAll();
             ?>
                 <div>
                     <label for="genero<?=$value['id_genero']?>"><?= $value['nombre_genero'] ?>
-                        <input type="radio" name="id_genero" value="<?= $value['id_genero'] ?>" id="<?=$value['id_genero']?>" >
+                        <input type="radio" name="id_genero" value="<?= $value['id_genero'] ?>" id="<?=$value['id_genero']?>"  required>
                     </label>
                 </div>
             <?php
