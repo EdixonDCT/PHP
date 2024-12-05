@@ -111,7 +111,5 @@ $lengUsu = $stm6->fetchAll();
                 }
             ?>
         </div>
-
-        <div>
         <input type="submit" value="Actualizar"></input>
 </form>

@@ -37,7 +37,7 @@ $lenguaje = $bandera_lenguaje->fetchAll();
 // print_r($lenguaje);
 // echo "<pre>";
 ?>
-<form action="prueba.php" method="post">
+<form action="controlador.php" method="post">
         <h1>Formulario</h1>
         <div>
             <label for="nombre">Nombre:</label>
