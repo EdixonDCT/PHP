@@ -128,9 +128,66 @@ if (
                 }
             ?>
         </div>
-        <?php } ?>
-        <input type="submit" value="Enviar"></input>   
+        <?php }
+        echo "================================================";
+        echo "<br>";
+         if (!preg_match("/^[a-zA-Z ]+$/", $nombre)) {
+            echo "Error en el nombre: no se puede colocar simbolos o numeros <br>";
+        }
+    
+        if (!preg_match("/^[a-zA-Z ]+$/", $apellido)) {
+            echo "Error en el apellido: no se puede colocar simbolos o numeros <br>";
+        }
+    
+        if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $correo)) {
+            echo "Error en el correo: no es valido ese tipo de correo <br>";
+        }
+    
+        if (empty($_POST['fecha_nacimiento'])) {
+            echo "Error en la fecha: No se puede ocasionar ERROR amenos que se modifique el codigo <br>";
+        }
+    
+        if ($id_ciudad == "null") {
+            echo "Error en la ciudad: Seleccione una ciudad <br>";
+        }
+    
+        if (empty($_POST['id_genero'])) {
+            echo "Error en el género: No se puede ocasionar ERROR amenos que se modifique el codigo <br>";
+        }
+    
+        if (empty($_POST['id_lenguaje'])) {
+            echo "Error en el lenguaje: Seleccione Almenos 1 tipo de lenguaje <br>";
+        }?>
+
+<input type="submit" value="Enviar"></input>   
 </form> 
 <?php
 }
-?>
+else{
+    $id_lenguaje = $_POST['id_lenguaje'];
+    
+    $sql = "INSERT INTO usuarios(nombre,apellido,correo,fecha_nacimiento,id_genero,id_ciudad) VALUES 
+(:nombre,:apellido,:correo,:fecha_nacimiento,:id_genero,:id_ciudad);";
+$stm = $conexion->prepare(($sql));
+
+$stm->bindParam(":nombre",$nombre);
+$stm->bindParam(":apellido",$apellido);
+$stm->bindParam(":correo",$correo);
+$stm->bindParam(":fecha_nacimiento",$fecha_nacimiento);
+$stm->bindParam(":id_genero",$id_genero);
+$stm->bindParam(":id_ciudad",$id_ciudad); 
+
+$stm->execute();
+
+$ultimo_usuario = $conexion->lastInsertId();
+foreach ($id_lenguaje as $key => $value)
+{
+$sql = "INSERT INTO lenguaje_usuario(id_usuario,id_lenguaje) VALUES (:id_usuario,:id_lenguaje)";
+$stm = $conexion->prepare($sql);
+$stm->bindParam(":id_usuario",$ultimo_usuario);
+$stm->bindParam(":id_lenguaje",$value);
+$stm->execute();
+}
+
+include('usuarios.php');
+}
