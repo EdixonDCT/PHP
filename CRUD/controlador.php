@@ -39,6 +39,7 @@ if (
 ) 
 {
 ?>
+<h1>ERROR DE VALIDACION</h1>
 <form action="controlador.php" method="post">
         <h1>Formulario</h1>
         <div>
@@ -189,5 +190,6 @@ $stm->bindParam(":id_lenguaje",$value);
 $stm->execute();
 }
 
+echo "<h1>AÑADIDO CON EXITO</h1>";
 include('usuarios.php');
 }
